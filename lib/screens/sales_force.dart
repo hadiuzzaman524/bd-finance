@@ -1,11 +1,18 @@
+import 'package:bd_finance/screens/appoinment.dart';
+import 'package:bd_finance/screens/contact.dart';
+import 'package:bd_finance/screens/customer_detail.dart';
+import 'package:bd_finance/screens/visit_detail.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/bottom_navigation.dart';
 import '../constants/constants.dart';
 import '../widgets/griditem.dart';
 import '../models/sales_forces_items.dart';
+import 'bdf_products.dart';
+import '../widgets/bottom_navigation.dart';
 
 class SalesForce extends StatelessWidget {
+  static const routeName="/SalesForce";
   final double margin = 20.0;
 
   @override
@@ -14,7 +21,7 @@ class SalesForce extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Sales Force",
-          style: TextStyle(color: textColor),
+          style: appBarTextStyle,
         ),
         centerTitle: true,
       ),
@@ -30,7 +37,23 @@ class SalesForce extends StatelessWidget {
               title: item.title,
               imageUrl: item.imageUrl,
               onPress: () {
-                print("Call");
+                switch(item.title){
+                  case "Deposit Products":
+                    Navigator.pushNamed(context, BDFProducts.routeName);
+                    break;
+                  case "Loan Products":
+                    Navigator.pushNamed(context, BDFProducts.routeName);
+                    break;
+                  case "Customer Info":
+                    Navigator.pushNamed(context, Contact.routeName);
+                    break;
+                  case "All Visit":
+                    Navigator.pushNamed(context, VisitDetails.routeName);
+                    break;
+                  case "Appoinment":
+                    Navigator.pushNamed(context, Appoinment.routeName);
+                    break; 
+                }
               },
             );
           }).toList(),
