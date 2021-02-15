@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:bd_finance/widgets/button.dart';
 import 'package:bd_finance/widgets/textfieldwithdropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import '../constants/constants.dart';
+
 import '../widgets/bottom_navigation.dart';
 
 class Contact extends StatefulWidget {
@@ -20,13 +25,19 @@ class _ContactState extends State<Contact> {
   final _mobileFocus = FocusNode();
   final _addressFocus = FocusNode();
   final _approximateFocus = FocusNode();
+  DateTime currentDate = DateTime.now();
+  bool _checkedValue = false;
+
+  File _image;
+  String _imagePath = "";
+  final picker = ImagePicker();
 
   String _name = "";
   String _mobile = "";
   String _address = "";
   String _approximate = "";
   String _profession = "";
-  DateTime _dateTime = DateTime.now();
+  String _dateTime = DateFormat.yMMMd().format(DateTime.now()).toString();
   String _imageUrl = "";
   bool _makeDeposit = false;
 
@@ -37,11 +48,41 @@ class _ContactState extends State<Contact> {
     bool valid = _formKey.currentState.validate();
 
     if (valid) {
-      print(_name);
-      print(_address);
-      print(_approximate);
-      print(_mobile);
+      if (_image == null) {
+        Fluttertoast.showToast(
+            msg: "Please picked an image",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            backgroundColor: Theme.of(context).primaryColor,
+            textColor: Colors.black,
+            fontSize: 16.0);
+      } else if (_profession.isEmpty) {
+        Fluttertoast.showToast(
+            msg: "Select your profession",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            backgroundColor: Theme.of(context).primaryColor,
+            textColor: Colors.black,
+            fontSize: 16.0);
+      } else {
+        print(_name);
+        print(_mobile);
+        print(_address);
+        print(_profession);
+        print(_approximate);
+        print(_dateTime);
+        print(_imagePath);
+        print(_makeDeposit);
+      }
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _mobileFocus.dispose();
+    _addressFocus.dispose();
+    _approximateFocus.dispose();
   }
 
   @override
@@ -178,8 +219,8 @@ class _ContactState extends State<Contact> {
               PopUpTextField(
                   title: _profession,
                   icon: Icons.arrow_drop_down_outlined,
-                  function: () {
-                    showPopupMenuProfessions();
+                  function: () async {
+                    await showPopupMenuProfessions();
                   }),
               SizedBox(
                 height: _elementgap,
@@ -225,10 +266,10 @@ class _ContactState extends State<Contact> {
                 height: _height,
               ),
               PopUpTextField(
-                  title: 'Birth Day',
+                  title: _dateTime,
                   icon: Icons.arrow_drop_down_outlined,
                   function: () {
-                    showPopupMenuProfessions();
+                    _selectDate(context);
                   }),
               SizedBox(
                 height: _elementgap,
@@ -241,11 +282,29 @@ class _ContactState extends State<Contact> {
                 height: _height,
               ),
               PopUpTextField(
-                  title: 'hadi.jpg',
+                  title: _imagePath,
                   icon: Icons.attach_file,
-                  function: () {
-                    showPopupMenuProfessions();
+                  function: () async {
+                    await getImage();
                   }),
+              Container(
+                child: Row(
+                  children: [
+                    Checkbox(
+                        checkColor: Colors.black,
+                        value: _checkedValue,
+                        onChanged: (value) {
+                          setState(() {
+                            _checkedValue = value;
+                          });
+                        }),
+                    Text(
+                      "Make Deposit",
+                      style: labelStyle,
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(
                 height: _elementgap,
               ),
@@ -311,75 +370,30 @@ class _ContactState extends State<Contact> {
       }
     });
   }
-}
 
-class PopUpTextField extends StatelessWidget {
-  final String title;
-  final Function function;
-  final IconData icon;
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime pickedDate = await showDatePicker(
+        context: context,
+        initialDate: currentDate,
+        firstDate: DateTime(1970),
+        lastDate: DateTime(2050));
+    if (pickedDate != null && pickedDate != currentDate)
+      setState(() {
+        currentDate = pickedDate;
+        _dateTime = DateFormat.yMMMd().format(currentDate).toString();
+      });
+  }
 
-  PopUpTextField({
-    @required this.title,
-    @required this.function,
-    @required this.icon,
-  });
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 63,
-      width: double.infinity,
-      child: Row(
-        children: [
-          Expanded(
-            flex: 5,
-            child: Container(
-              height: double.infinity,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Colors.grey),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(5),
-                  topLeft: Radius.circular(5),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Colors.grey),
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(5),
-                  topRight: Radius.circular(5),
-                ),
-              ),
-              child: Center(
-                child: InkWell(
-                  onTap: function,
-                  child: Icon(icon),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+        _imagePath = pickedFile.path.toString();
+      } else {
+        print('No image selected.');
+      }
+    });
   }
 }
