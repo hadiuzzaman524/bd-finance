@@ -12,7 +12,7 @@ import 'bdf_products.dart';
 import '../widgets/bottom_navigation.dart';
 
 class SalesForce extends StatelessWidget {
-  static const routeName="/SalesForce";
+  static const routeName = "/SalesForce";
   final double margin = 20.0;
 
   @override
@@ -26,6 +26,7 @@ class SalesForce extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
+        color: Theme.of(context).accentColor,
         margin: EdgeInsets.only(left: margin, right: margin, top: 10),
         child: GridView.count(
           crossAxisCount: 2,
@@ -37,7 +38,7 @@ class SalesForce extends StatelessWidget {
               title: item.title,
               imageUrl: item.imageUrl,
               onPress: () {
-                switch(item.title){
+                switch (item.title) {
                   case "Deposit Products":
                     Navigator.pushNamed(context, BDFProducts.routeName);
                     break;
@@ -52,7 +53,7 @@ class SalesForce extends StatelessWidget {
                     break;
                   case "Appoinment":
                     Navigator.pushNamed(context, Appoinment.routeName);
-                    break; 
+                    break;
                 }
               },
             );
