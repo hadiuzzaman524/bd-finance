@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "851031232665",
+    "project_id": "bd-finance",
+    "storage_bucket": "bd-finance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851031232665:android:3cbc65012eabb01aa2e808",
+        "android_client_info": {
+          "package_name": "bd.com.bd_finance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "851031232665-5pa5cjc0amrqcsha286lpg1phor5gkrp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbhKf-u-ehhLRnql2kB5HX-f8Yf2nqKBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "851031232665-5pa5cjc0amrqcsha286lpg1phor5gkrp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

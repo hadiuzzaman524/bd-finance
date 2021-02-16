@@ -1,4 +1,6 @@
 import 'package:bd_finance/constants/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import './screens/sales_force.dart';
@@ -8,8 +10,12 @@ import './screens/contact.dart';
 import './screens/customer_detail.dart';
 import './screens/login.dart';
 import './screens/visit_detail.dart';
+import 'screens/login.dart';
+import 'screens/sales_force.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -26,7 +32,21 @@ class MyApp extends StatelessWidget {
           color: textColor,
         ),
       ),
-      home: Login(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (ctx, stateSnapshoot) {
+          if (stateSnapshoot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (stateSnapshoot.hasData) {
+            return SalesForce();
+          } else {
+            return Login();
+          }
+        },
+      ),
       routes: {
         SalesForce.routeName: (ctx) => SalesForce(),
         Appoinment.routeName: (ctx) => Appoinment(),

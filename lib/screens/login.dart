@@ -2,6 +2,7 @@ import 'package:bd_finance/constants/constants.dart';
 import 'package:bd_finance/generated/assets.dart';
 import 'package:bd_finance/screens/sales_force.dart';
 import 'package:bd_finance/widgets/button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -23,28 +24,63 @@ class _LoginState extends State<Login> {
   final double _height = 8;
   final double _elementgap = 15;
   final _passwordFocus = FocusNode();
+  bool isLoading = false;
 
+  UserCredential state;
+  final auth = FirebaseAuth.instance;
 
-  _saveLogInForm() {
+  _saveLogInForm() async {
     _formKey.currentState.save();
     bool valid = _formKey.currentState.validate();
 
     if (valid) {
-      print(_email);
-      print(_password);
-      Navigator.pushReplacementNamed(context, SalesForce.routeName);
+      setState(() {
+        isLoading = true;
+      });
+      print("Wait...");
+      state = await auth
+          .signInWithEmailAndPassword(email: _email, password: _password)
+          .catchError((e) {
+        print("Error");
+        print(e);
+      });
+      print("Done");
+
     }
   }
 
-  _saveSignUpForm() {
+  _saveSignUpForm() async {
     _singUpFormKey.currentState.save();
     bool valid = _singUpFormKey.currentState.validate();
 
     if (valid) {
-      print(_email);
-      print(_password);
-      print(_name);
+      setState(() {
+        isLoading = true;
+      });
+      print('Waiting....');
       Navigator.pop(context);
+      Scaffold.of(context).showBottomSheet((context) {
+        return Text('Waiting');
+      });
+      state = await auth
+          .createUserWithEmailAndPassword(email: _email, password: _password)
+          .catchError((e) {
+        print("error");
+        setState(() {
+          isLoading = false;
+        });
+      });
+      print("Done");
+
+      /*  await FirebaseFirestore.instance
+          .collection('users')
+          .doc()
+          .set({'name': _name, 'userId': state.user.uid}).catchError((e) {
+        setState(() {
+          isLoading = false;
+        });
+      });*/
+
     }
   }
 
@@ -115,14 +151,16 @@ class _LoginState extends State<Login> {
         ),
         buttons: [
           DialogButton(
-            color: Theme
-                .of(context)
-                .buttonColor,
+            color: Theme.of(context).buttonColor,
             onPressed: _saveSignUpForm,
-            child: Text(
-              "LOGIN",
-              style: TextStyle(color: Colors.black, fontSize: 20),
-            ),
+            child: isLoading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Text(
+                    "LOGIN",
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ),
           )
         ]).show();
   }
@@ -154,13 +192,11 @@ class _LoginState extends State<Login> {
                     Center(
                       child: CircleAvatar(
                         radius: 55,
-                        backgroundColor: Theme
-                            .of(context)
-                            .primaryColor,
+                        backgroundColor: Theme.of(context).primaryColor,
                         child: CircleAvatar(
                           radius: 52,
                           backgroundImage:
-                          AssetImage('assets/images/f120x120.png'),
+                              AssetImage('assets/images/f120x120.png'),
                         ),
                       ),
                     )
