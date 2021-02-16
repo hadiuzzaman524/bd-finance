@@ -49,7 +49,7 @@ class SalesForce extends StatelessWidget {
                     Navigator.pushNamed(context, Contact.routeName);
                     break;
                   case "All Visit":
-                    Navigator.pushNamed(context, VisitDetails.routeName);
+                    Navigator.pushReplacementNamed(context, VisitDetails.routeName);
                     break;
                   case "Appoinment":
                     Navigator.pushNamed(context, Appoinment.routeName);
