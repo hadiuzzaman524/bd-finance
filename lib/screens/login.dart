@@ -115,7 +115,9 @@ class _LoginState extends State<Login> {
         ),
         buttons: [
           DialogButton(
-            color: Theme.of(context).buttonColor,
+            color: Theme
+                .of(context)
+                .buttonColor,
             onPressed: _saveSignUpForm,
             child: Text(
               "LOGIN",
@@ -152,11 +154,13 @@ class _LoginState extends State<Login> {
                     Center(
                       child: CircleAvatar(
                         radius: 55,
-                        backgroundColor: Theme.of(context).primaryColor,
+                        backgroundColor: Theme
+                            .of(context)
+                            .primaryColor,
                         child: CircleAvatar(
                           radius: 52,
                           backgroundImage:
-                              AssetImage('assets/images/f120x120.png'),
+                          AssetImage('assets/images/f120x120.png'),
                         ),
                       ),
                     )
