@@ -28,7 +28,6 @@ class AppDrawer extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          Divider(),
           FlatButton(
             onPressed: () {
               Navigator.pushReplacementNamed(context, SalesForce.routeName);
@@ -38,6 +37,7 @@ class AppDrawer extends StatelessWidget {
               title: Text('Home'),
             ),
           ),
+          Divider(),
           FlatButton(
             onPressed: () {
               Navigator.pushReplacementNamed(context, BDFProducts.routeName);
@@ -75,19 +75,6 @@ class AppDrawer extends StatelessWidget {
             child: ListTile(
               leading: Icon(Icons.description),
               title: Text('Appointment'),
-            ),
-          ),
-          Divider(),
-          FlatButton(
-            onPressed: () async {
-              // Navigator.pushReplacementNamed(context, RegistrationScreen.routeName);
-            },
-            child: ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Log Out'),
-              onTap: (){
-                FirebaseAuth.instance.signOut();
-              },
             ),
           ),
         ],

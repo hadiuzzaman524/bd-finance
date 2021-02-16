@@ -2,6 +2,7 @@ import 'package:bd_finance/screens/appoinment.dart';
 import 'package:bd_finance/screens/contact.dart';
 import 'package:bd_finance/screens/customer_detail.dart';
 import 'package:bd_finance/screens/visit_detail.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/bottom_navigation.dart';
@@ -24,6 +25,21 @@ class SalesForce extends StatelessWidget {
           style: appBarTextStyle,
         ),
         centerTitle: true,
+        actions: [
+          PopupMenuButton(
+            onSelected: (selectedValue) {
+              if (1 == selectedValue) {
+               FirebaseAuth.instance.signOut();
+              }
+            },
+            itemBuilder: (_) => [
+              PopupMenuItem(
+                child: Text('Log out'),
+                value: 1,
+              ),
+            ],
+          ),
+        ],
       ),
       body: Container(
         color: Theme.of(context).accentColor,
@@ -49,7 +65,8 @@ class SalesForce extends StatelessWidget {
                     Navigator.pushNamed(context, Contact.routeName);
                     break;
                   case "All Visit":
-                    Navigator.pushReplacementNamed(context, VisitDetails.routeName);
+                    Navigator.pushReplacementNamed(
+                        context, VisitDetails.routeName);
                     break;
                   case "Appoinment":
                     Navigator.pushNamed(context, Appoinment.routeName);
