@@ -1,5 +1,8 @@
+import 'package:bd_finance/screens/appoinment.dart';
+import 'package:bd_finance/screens/bdf_products.dart';
+import 'package:bd_finance/screens/contact.dart';
+import 'package:bd_finance/screens/sales_force.dart';
 import 'package:flutter/material.dart';
-
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -24,9 +27,19 @@ class AppDrawer extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
+          Divider(),
           FlatButton(
             onPressed: () {
-             // Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+              Navigator.pushReplacementNamed(context, SalesForce.routeName);
+            },
+            child: ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Home'),
+            ),
+          ),
+          FlatButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, BDFProducts.routeName);
             },
             child: ListTile(
               leading: Icon(Icons.description),
@@ -36,7 +49,7 @@ class AppDrawer extends StatelessWidget {
           Divider(),
           FlatButton(
             onPressed: () {
-           //   Navigator.pushReplacementNamed(context, OrderScreen.routeName);
+              Navigator.pushReplacementNamed(context, BDFProducts.routeName);
             },
             child: ListTile(
               leading: Icon(Icons.description),
@@ -46,7 +59,7 @@ class AppDrawer extends StatelessWidget {
           Divider(),
           FlatButton(
             onPressed: () {
-             // Navigator.pushReplacementNamed(context, MyProductScreen.routeName);
+              Navigator.pushReplacementNamed(context, Contact.routeName);
             },
             child: ListTile(
               leading: Icon(Icons.description),
@@ -55,8 +68,8 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           FlatButton(
-            onPressed: () async{
-              // Navigator.pushReplacementNamed(context, RegistrationScreen.routeName);
+            onPressed: () async {
+              Navigator.pushReplacementNamed(context, Appoinment.routeName);
             },
             child: ListTile(
               leading: Icon(Icons.description),
@@ -65,8 +78,8 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           FlatButton(
-            onPressed: () async{
-             // Navigator.pushReplacementNamed(context, RegistrationScreen.routeName);
+            onPressed: () async {
+              // Navigator.pushReplacementNamed(context, RegistrationScreen.routeName);
             },
             child: ListTile(
               leading: Icon(Icons.logout),

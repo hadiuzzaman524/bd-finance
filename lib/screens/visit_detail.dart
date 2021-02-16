@@ -1,3 +1,4 @@
+import 'package:bd_finance/screens/customer_detail.dart';
 import 'package:bd_finance/widgets/customer_visit_card.dart';
 import 'package:bd_finance/widgets/deposit_information_card.dart';
 import 'package:bd_finance/widgets/drawer.dart';
@@ -30,7 +31,7 @@ class VisitDetails extends StatelessWidget {
                     "https://cdn.psychologytoday.com/sites/default/files/styles/article-inline-half-caption/public/field_blog_entry_images/2018-09/shutterstock_648907024.jpg?itok=0hb44OrI",
                 title: "First Account",
                 function: () {
-                  Navigator.pushNamed(context, Contact.routeName);
+                  Navigator.pushNamed(context, CustomerDetails.routeName);
                 },
                 subtitle:
                     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer.",
