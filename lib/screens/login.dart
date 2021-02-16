@@ -20,6 +20,8 @@ class _LoginState extends State<Login> {
   String _name = "";
   final _formKey = GlobalKey<FormState>();
   final _singUpFormKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  String _errorMsg = '';
 
   final double _height = 8;
   final double _elementgap = 15;
@@ -41,11 +43,14 @@ class _LoginState extends State<Login> {
       state = await auth
           .signInWithEmailAndPassword(email: _email, password: _password)
           .catchError((e) {
-        print("Error");
-        print(e);
+        _errorMsg = e.toString();
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(_errorMsg.split(". ").last)));
+        setState(() {
+          isLoading = false;
+        });
       });
       print("Done");
-
     }
   }
 
@@ -59,18 +64,21 @@ class _LoginState extends State<Login> {
       });
       print('Waiting....');
       Navigator.pop(context);
-      Scaffold.of(context).showBottomSheet((context) {
-        return Text('Waiting');
-      });
-      state = await auth
-          .createUserWithEmailAndPassword(email: _email, password: _password)
-          .catchError((e) {
-        print("error");
-        setState(() {
-          isLoading = false;
+      try {
+        state = await auth
+            .createUserWithEmailAndPassword(email: _email, password: _password)
+            .catchError((e) {
+          _errorMsg = e.toString();
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(_errorMsg.split(". ").last)));
+          setState(() {
+            isLoading = false;
+          });
         });
-      });
-      print("Done");
+        print("Done");
+      } catch (e) {
+        print(e);
+      }
 
       /*  await FirebaseFirestore.instance
           .collection('users')
@@ -153,11 +161,7 @@ class _LoginState extends State<Login> {
           DialogButton(
             color: Theme.of(context).buttonColor,
             onPressed: _saveSignUpForm,
-            child: isLoading
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Text(
+            child:Text(
                     "LOGIN",
                     style: TextStyle(color: Colors.black, fontSize: 20),
                   ),
@@ -283,7 +287,18 @@ class _LoginState extends State<Login> {
                         height: _elementgap,
                       ),
                       CommonButton(
-                        title: "Log in",
+                        title: isLoading
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : Text(
+                                'Log in',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
                         onPress: _saveLogInForm,
                       ),
                       SizedBox(

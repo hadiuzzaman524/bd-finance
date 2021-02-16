@@ -309,7 +309,13 @@ class _ContactState extends State<Contact> {
                 height: _elementgap,
               ),
               CommonButton(
-                  title: "Create Visit",
+                  title: Text('Create Visit',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                   onPress: () {
                     _saveForm();
                   }),

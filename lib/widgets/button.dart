@@ -5,12 +5,11 @@ class CommonButton extends StatelessWidget {
     Key key,
     @required this.title,
     @required this.onPress,
-    this.isLoading,
   }) : super(key: key);
 
-  final String title;
+  final Widget title;
   final Function onPress;
-  final bool isLoading;
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +23,7 @@ class CommonButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
         child: Center(
-          child: Text(
-                  title,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
+          child: title,
         ),
       ),
     );

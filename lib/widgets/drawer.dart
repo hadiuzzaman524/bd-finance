@@ -2,6 +2,7 @@ import 'package:bd_finance/screens/appoinment.dart';
 import 'package:bd_finance/screens/bdf_products.dart';
 import 'package:bd_finance/screens/contact.dart';
 import 'package:bd_finance/screens/sales_force.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -84,6 +85,9 @@ class AppDrawer extends StatelessWidget {
             child: ListTile(
               leading: Icon(Icons.logout),
               title: Text('Log Out'),
+              onTap: (){
+                FirebaseAuth.instance.signOut();
+              },
             ),
           ),
         ],

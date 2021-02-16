@@ -128,7 +128,16 @@ class CustomerDetails extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            CommonButton(title: "Submit", onPress: () {}),
+            CommonButton(
+                title: Text(
+                  'Submit',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                onPress: () {}),
             SizedBox(
               height: 20,
             ),

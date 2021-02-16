@@ -183,7 +183,13 @@ class _AppoinmentState extends State<Appoinment> {
                 height: _elementgap,
               ),
               CommonButton(
-                  title: "Submit",
+                  title: Text('Submit',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                   onPress: () {
                     _saveForm();
                   }),
