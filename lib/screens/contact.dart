@@ -96,7 +96,7 @@ class _ContactState extends State<Contact> {
         centerTitle: true,
       ),
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.only(left: 20,right: 20,top: 20),
         child: Form(
           key: _formKey,
           child: ListView(
@@ -313,6 +313,9 @@ class _ContactState extends State<Contact> {
                   onPress: () {
                     _saveForm();
                   }),
+              SizedBox(
+                height: _elementgap,
+              ),
             ],
           ),
         ),
@@ -385,12 +388,16 @@ class _ContactState extends State<Contact> {
   }
 
   Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    final pickedFile =
+        await picker.getImage(source: ImageSource.gallery).catchError((e) {
+      print("error");
+    });
 
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
-        _imagePath = pickedFile.path.toString();
+        _imagePath = pickedFile.path.split('/').last.toString();
+        //file.path.split('/').last;
       } else {
         print('No image selected.');
       }

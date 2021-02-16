@@ -1,6 +1,8 @@
 import 'package:bd_finance/widgets/button.dart';
+import 'package:bd_finance/widgets/textfieldwithdropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../constants/constants.dart';
 import '../widgets/bottom_navigation.dart';
@@ -16,14 +18,16 @@ class _AppoinmentState extends State<Appoinment> {
   final _formKey = GlobalKey<FormState>();
   final double _height = 8;
   final double _elementgap = 15;
-  final _mobileFocus = FocusNode();
-  final _addressFocus = FocusNode();
-  final _approximateFocus = FocusNode();
+
+  final _nameFocus = FocusNode();
+  final _messageFocus = FocusNode();
 
   String _name = "";
   String _mobile = "";
   String _message = "";
-  DateTime _dateTime = DateTime.now();
+  String _dateTime = DateFormat.yMMMd().format(DateTime.now()).toString();
+
+  DateTime currentDate = DateTime.now();
 
   _saveForm() {
     _formKey.currentState.save();
@@ -33,7 +37,15 @@ class _AppoinmentState extends State<Appoinment> {
       print(_name);
       print(_mobile);
       print(_message);
+      print(_dateTime);
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _nameFocus.dispose();
+    _messageFocus.dispose();
   }
 
   @override
@@ -44,7 +56,7 @@ class _AppoinmentState extends State<Appoinment> {
         centerTitle: true,
       ),
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.only(left: 20, right: 20, top: 20),
         child: Form(
           key: _formKey,
           child: ListView(
@@ -58,7 +70,6 @@ class _AppoinmentState extends State<Appoinment> {
               ),
               TextFormField(
                 textInputAction: TextInputAction.next,
-                focusNode: _mobileFocus,
                 decoration: InputDecoration(
                   hintText: 'eg:017',
                   border: OutlineInputBorder(
@@ -79,7 +90,7 @@ class _AppoinmentState extends State<Appoinment> {
                   _mobile = value;
                 },
                 onFieldSubmitted: (value) {
-                  FocusScope.of(context).requestFocus(_addressFocus);
+                  FocusScope.of(context).requestFocus(_nameFocus);
                 },
               ),
               SizedBox(
@@ -93,6 +104,7 @@ class _AppoinmentState extends State<Appoinment> {
                 height: _height,
               ),
               TextFormField(
+                focusNode: _nameFocus,
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
                   hintText: 'eg: Jaison Justus ',
@@ -114,9 +126,25 @@ class _AppoinmentState extends State<Appoinment> {
                   _name = value;
                 },
                 onFieldSubmitted: (value) {
-                  FocusScope.of(context).requestFocus(_mobileFocus);
+                  FocusScope.of(context).requestFocus(_messageFocus);
                 },
               ),
+              SizedBox(
+                height: _elementgap,
+              ),
+              Text(
+                "Birth Day",
+                style: labelStyle,
+              ),
+              SizedBox(
+                height: _height,
+              ),
+              PopUpTextField(
+                  title: _dateTime.toString(),
+                  icon: Icons.arrow_drop_down_outlined,
+                  function: () {
+                    _selectDate(context);
+                  }),
               SizedBox(
                 height: _elementgap,
               ),
@@ -130,7 +158,7 @@ class _AppoinmentState extends State<Appoinment> {
               TextFormField(
                 maxLines: 7,
                 textInputAction: TextInputAction.done,
-                focusNode: _approximateFocus,
+                focusNode: _messageFocus,
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   hintText: 'Add your Message',
@@ -159,11 +187,27 @@ class _AppoinmentState extends State<Appoinment> {
                   onPress: () {
                     _saveForm();
                   }),
+              SizedBox(
+                height: _elementgap,
+              ),
             ],
           ),
         ),
       ),
       bottomNavigationBar: BottomNavigation(),
     );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime pickedDate = await showDatePicker(
+        context: context,
+        initialDate: currentDate,
+        firstDate: DateTime(1970),
+        lastDate: DateTime(2050));
+    if (pickedDate != null && pickedDate != currentDate)
+      setState(() {
+        currentDate = pickedDate;
+        _dateTime = DateFormat.yMMMd().format(currentDate).toString();
+      });
   }
 }

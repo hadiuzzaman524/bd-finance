@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class PopUpTextField extends StatelessWidget {
@@ -15,7 +14,7 @@ class PopUpTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 63,
+      height: 62,
       width: double.infinity,
       child: Row(
         children: [
