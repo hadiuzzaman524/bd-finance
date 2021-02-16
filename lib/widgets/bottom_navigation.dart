@@ -37,7 +37,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         ),
       ],
       currentIndex: _selectedIndex,
-      selectedItemColor: Colors.grey,
+      selectedItemColor: Colors.grey[700],
       onTap: (value) {
         setState(() {
           _selectedIndex = value;
