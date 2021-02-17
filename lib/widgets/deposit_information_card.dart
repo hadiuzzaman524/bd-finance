@@ -16,7 +16,7 @@ class DepositInformationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 10),
-      height: 166,
+      height: 180,
       child: Card(
         elevation: 5,
         child: Container(
@@ -51,26 +51,29 @@ class DepositInformationCard extends StatelessWidget {
                           subtitle: Text(subtitle),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          FlatButton(
-                            onPressed: function,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: Theme.of(context).buttonColor,
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            FlatButton(
+                              onPressed: function,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Theme.of(context).buttonColor,
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 6, horizontal: 20),
+                                child: Text(
+                                  'Select',
+                                  textAlign: TextAlign.justify,
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 6, horizontal: 20),
-                              child: Text(
-                                'Select',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
