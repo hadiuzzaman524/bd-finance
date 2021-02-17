@@ -5,5 +5,9 @@ class Assets {
   static const String imagesF120x120 = 'assets/images/f120x120.png';
   static const String imagesFinancelogo = 'assets/images/financelogo.png';
   static const String imagesIcon = 'assets/images/icon.png';
+  static const String imagesLoan40x40 = 'assets/images/loan40x40.png';
+  static const String imagesTimetable40x40 = 'assets/images/timetable40x40.png';
+  static const String imagesUser40x40 = 'assets/images/user40x40.png';
+  static const String imagesUsersgroup40x40 = 'assets/images/usersgroup40x40.png';
 
 }
