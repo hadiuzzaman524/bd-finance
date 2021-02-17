@@ -1,9 +1,4 @@
 import 'dart:io';
-
-import 'package:bd_finance/models/customer_details.dart';
-import 'package:bd_finance/models/data_handelar.dart';
-import 'package:bd_finance/widgets/button.dart';
-import 'package:bd_finance/widgets/textfieldwithdropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,6 +7,10 @@ import 'package:intl/intl.dart';
 import '../constants/constants.dart';
 
 import '../widgets/bottom_navigation.dart';
+import '../models/customer_details.dart';
+import '../models/data_handelar.dart';
+import '../widgets/button.dart';
+import '../widgets/textfieldwithdropdown.dart';
 
 class Contact extends StatefulWidget {
   static const routeName = "/Contacts";

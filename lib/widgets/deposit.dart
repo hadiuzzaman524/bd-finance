@@ -1,7 +1,8 @@
-import 'package:bd_finance/models/data_handelar.dart';
-import 'package:bd_finance/screens/contact.dart';
-import 'package:bd_finance/widgets/deposit_information_card.dart';
 import 'package:flutter/material.dart';
+
+import '../models/data_handelar.dart';
+import '../screens/contact.dart';
+import '../widgets/deposit_information_card.dart';
 
 class Deposit extends StatelessWidget {
   final handler = DataHandelar();

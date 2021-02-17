@@ -1,4 +1,3 @@
-import 'package:bd_finance/constants/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +8,12 @@ import './screens/bdf_products.dart';
 import './screens/contact.dart';
 import './screens/customer_detail.dart';
 import './screens/login.dart';
+import './constants/constants.dart';
 import './screens/visit_detail.dart';
 import 'screens/login.dart';
 import 'screens/sales_force.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());

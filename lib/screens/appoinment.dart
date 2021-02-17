@@ -1,7 +1,3 @@
-import 'package:bd_finance/models/client_appointment.dart';
-import 'package:bd_finance/models/data_handelar.dart';
-import 'package:bd_finance/widgets/button.dart';
-import 'package:bd_finance/widgets/textfieldwithdropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,6 +5,10 @@ import 'package:intl/intl.dart';
 
 import '../constants/constants.dart';
 import '../widgets/bottom_navigation.dart';
+import '../models/client_appointment.dart';
+import '../models/data_handelar.dart';
+import '../widgets/button.dart';
+import '../widgets/textfieldwithdropdown.dart';
 
 class Appoinment extends StatefulWidget {
   static const routeName = "/Appoinment";

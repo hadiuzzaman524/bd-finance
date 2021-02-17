@@ -1,12 +1,11 @@
-import 'package:bd_finance/constants/constants.dart';
-import 'package:bd_finance/generated/assets.dart';
-import 'package:bd_finance/screens/sales_force.dart';
-import 'package:bd_finance/widgets/button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+
+import '../constants/constants.dart';
+import '../screens/sales_force.dart';
+import '../widgets/button.dart';
 
 class Login extends StatefulWidget {
   static const routeName = "/Login";
@@ -178,7 +177,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Log in"),
+        title: Text("Log in",style: appBarTextStyle,),
         centerTitle: true,
       ),
       body: Container(

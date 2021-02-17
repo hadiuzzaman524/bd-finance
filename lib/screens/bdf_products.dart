@@ -1,10 +1,9 @@
-import 'package:bd_finance/constants/constants.dart';
-import 'package:bd_finance/widgets/deposit.dart';
-import 'package:bd_finance/widgets/loan.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/constants.dart';
 import '../widgets/bottom_navigation.dart';
+import '../widgets/deposit.dart';
+import '../widgets/loan.dart';
 
 class BDFProducts extends StatefulWidget {
   static const routeName = "/BDFProducts";

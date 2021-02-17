@@ -1,7 +1,3 @@
-import 'package:bd_finance/screens/appoinment.dart';
-import 'package:bd_finance/screens/contact.dart';
-import 'package:bd_finance/screens/customer_detail.dart';
-import 'package:bd_finance/screens/visit_detail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +6,10 @@ import '../constants/constants.dart';
 import '../widgets/griditem.dart';
 import '../models/sales_forces_items.dart';
 import 'bdf_products.dart';
-import '../widgets/bottom_navigation.dart';
+import '../screens/appoinment.dart';
+import '../screens/contact.dart';
+import '../screens/visit_detail.dart';
+
 
 class SalesForce extends StatelessWidget {
   static const routeName = "/SalesForce";

@@ -65,17 +65,28 @@ class DataHandelar {
   ];
 
   List<VisitUserInfo> visitUserList = [
-    VisitUserInfo(title: "Md. Hadiuzzaman", subtitle: _subtitle,imageUrl: _imageUrl),
-    VisitUserInfo(title: "Md. Ashraful Islam", subtitle: _subtitle,imageUrl: _imageUrl),
-    VisitUserInfo(title: "Asaduzzaman Sarker", subtitle: _subtitle,imageUrl: _imageUrl),
-    VisitUserInfo(title: "Mantasha Mustarin", subtitle: _subtitle,imageUrl: _imageUrl),
-    VisitUserInfo(title: "Abdul Hamid", subtitle: _subtitle,imageUrl: _imageUrl),
-    VisitUserInfo(title: "Fariha Sultana", subtitle: _subtitle,imageUrl: _imageUrl),
-    VisitUserInfo(title: "Jerin Akter", subtitle: _subtitle,imageUrl: _imageUrl),
-    VisitUserInfo(title: "Fahima Akter", subtitle: _subtitle,imageUrl: _imageUrl),
-    VisitUserInfo(title: "Binoyee Arefin", subtitle: _subtitle,imageUrl: _imageUrl),
-    VisitUserInfo(title: "Shahariar Konok", subtitle: _subtitle,imageUrl: _imageUrl),
-    VisitUserInfo(title: "Najmun Oishi", subtitle: _subtitle,imageUrl: _imageUrl),
+    VisitUserInfo(
+        title: "Md. Hadiuzzaman", subtitle: _subtitle, imageUrl: _imageUrl),
+    VisitUserInfo(
+        title: "Md. Ashraful Islam", subtitle: _subtitle, imageUrl: _imageUrl),
+    VisitUserInfo(
+        title: "Asaduzzaman Sarker", subtitle: _subtitle, imageUrl: _imageUrl),
+    VisitUserInfo(
+        title: "Mantasha Mustarin", subtitle: _subtitle, imageUrl: _imageUrl),
+    VisitUserInfo(
+        title: "Abdul Hamid", subtitle: _subtitle, imageUrl: _imageUrl),
+    VisitUserInfo(
+        title: "Fariha Sultana", subtitle: _subtitle, imageUrl: _imageUrl),
+    VisitUserInfo(
+        title: "Jerin Akter", subtitle: _subtitle, imageUrl: _imageUrl),
+    VisitUserInfo(
+        title: "Fahima Akter", subtitle: _subtitle, imageUrl: _imageUrl),
+    VisitUserInfo(
+        title: "Binoyee Arefin", subtitle: _subtitle, imageUrl: _imageUrl),
+    VisitUserInfo(
+        title: "Shahariar Konok", subtitle: _subtitle, imageUrl: _imageUrl),
+    VisitUserInfo(
+        title: "Najmun Oishi", subtitle: _subtitle, imageUrl: _imageUrl),
   ];
 
   Future<void> postLoanAndDeposit(CustomerDetails customer) async {
