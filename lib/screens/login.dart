@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../constants/constants.dart';
@@ -20,7 +21,6 @@ class _LoginState extends State<Login> {
   String _name = "";
   final _formKey = GlobalKey<FormState>();
   final _singUpFormKey = GlobalKey<FormState>();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
   String _errorMsg = '';
 
   final double _height = 8;
@@ -44,8 +44,7 @@ class _LoginState extends State<Login> {
           .signInWithEmailAndPassword(email: _email, password: _password)
           .catchError((e) {
         _errorMsg = e.toString();
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(_errorMsg.split(". ").last)));
+       _showToast(_errorMsg);
         setState(() {
           isLoading = false;
         });
@@ -63,14 +62,14 @@ class _LoginState extends State<Login> {
         isLoading = true;
       });
       print('Waiting....');
+
       Navigator.pop(context);
       try {
         state = await auth
             .createUserWithEmailAndPassword(email: _email, password: _password)
             .catchError((e) {
           _errorMsg = e.toString();
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(_errorMsg.split(". ").last)));
+          _showToast(_errorMsg);
           setState(() {
             isLoading = false;
           });
@@ -88,6 +87,16 @@ class _LoginState extends State<Login> {
         print("Error: $e");
       });
     }
+  }
+
+  _showToast(String msg) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 
   _showAlertDialog() {
@@ -177,7 +186,10 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Log in",style: appBarTextStyle,),
+        title: Text(
+          "Log in",
+          style: appBarTextStyle,
+        ),
         centerTitle: true,
       ),
       body: Container(
