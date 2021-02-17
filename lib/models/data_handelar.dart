@@ -12,7 +12,7 @@ import 'client_appointment.dart';
 
 class DataHandelar {
   static const _subtitle =
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer.";
+      "Lorem Ipsum is simply dummy text of the printing and industry. Lorem Ipsum has been the main industry's standard dummy text ever since the 1500s.";
   static const _imageUrl =
       "https://cdn.psychologytoday.com/sites/default/files/styles/article-inline-half-caption/public/field_blog_entry_images/2018-09/shutterstock_648907024.jpg?itok=0hb44OrI";
 
