@@ -1,7 +1,10 @@
+import 'package:bd_finance/models/client_appointment.dart';
+import 'package:bd_finance/models/data_handelar.dart';
 import 'package:bd_finance/widgets/button.dart';
 import 'package:bd_finance/widgets/textfieldwithdropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 import '../constants/constants.dart';
@@ -28,19 +31,42 @@ class _AppoinmentState extends State<Appoinment> {
   String _dateTime = DateFormat.yMMMd().format(DateTime.now()).toString();
 
   DateTime currentDate = DateTime.now();
+  final handelar = DataHandelar();
+  bool _isLoading = false;
 
-  _saveForm() {
+  _saveForm() async {
     _formKey.currentState.save();
     bool valid = _formKey.currentState.validate();
 
     if (valid) {
-      print(_name);
-      print(_mobile);
-      print(_message);
-      print(_dateTime);
+      setState(() {
+        _isLoading = true;
+      });
+      try {
+        await handelar.postAppointment(ClientAppointment(
+          mobile: _mobile,
+          name: _name,
+          message: _message,
+          dateTime: _dateTime,
+        ));
+        _showToast('Registration successful');
+        setState(() {
+          _isLoading = false;
+        });
+      } catch (e) {
+        print(e);
+      }
     }
   }
-
+  _showToast(String msg) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Theme.of(context).primaryColor,
+        textColor: Colors.black,
+        fontSize: 16.0);
+  }
   @override
   void dispose() {
     super.dispose();
@@ -183,13 +209,18 @@ class _AppoinmentState extends State<Appoinment> {
                 height: _elementgap,
               ),
               CommonButton(
-                  title: Text('Submit',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
+                  title: _isLoading
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Text(
+                          'Submit',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
                   onPress: () {
                     _saveForm();
                   }),

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:bd_finance/models/customer_details.dart';
+import 'package:bd_finance/models/data_handelar.dart';
 import 'package:bd_finance/widgets/button.dart';
 import 'package:bd_finance/widgets/textfieldwithdropdown.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,40 +43,54 @@ class _ContactState extends State<Contact> {
   String _imageUrl = "";
   bool _makeDeposit = false;
 
+  final handler = DataHandelar();
+  bool _isLoading = false;
+
   String _professionHint = "Choose your profession";
 
-  _saveForm() {
+  _saveForm() async {
     _formKey.currentState.save();
     bool valid = _formKey.currentState.validate();
 
     if (valid) {
+      setState(() {
+        _isLoading = true;
+      });
       if (_image == null) {
-        Fluttertoast.showToast(
-            msg: "Please picked an image",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            backgroundColor: Theme.of(context).primaryColor,
-            textColor: Colors.black,
-            fontSize: 16.0);
+        _showToast("Please picked an image");
       } else if (_profession.isEmpty) {
-        Fluttertoast.showToast(
-            msg: "Select your profession",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            backgroundColor: Theme.of(context).primaryColor,
-            textColor: Colors.black,
-            fontSize: 16.0);
+        _showToast("Select your profession");
       } else {
-        print(_name);
-        print(_mobile);
-        print(_address);
-        print(_profession);
-        print(_approximate);
-        print(_dateTime);
-        print(_imagePath);
-        print(_makeDeposit);
+        try {
+          await handler.postLoanAndDeposit(CustomerDetails(
+            name: _name,
+            mobile: _mobile,
+            address: _address,
+            profession: _profession,
+            approximate: _approximate,
+            birthday: _dateTime,
+            makeDeposite: _makeDeposit,
+            file: _image,
+          ));
+        } catch (e) {
+          print(e);
+        }
+        _showToast("Registration Successful");
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
+  }
+
+  _showToast(String msg) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Theme.of(context).primaryColor,
+        textColor: Colors.black,
+        fontSize: 16.0);
   }
 
   @override
@@ -96,7 +112,7 @@ class _ContactState extends State<Contact> {
         centerTitle: true,
       ),
       body: Container(
-        padding: EdgeInsets.only(left: 20,right: 20,top: 20),
+        padding: EdgeInsets.only(left: 20, right: 20, top: 20),
         child: Form(
           key: _formKey,
           child: ListView(
@@ -309,13 +325,18 @@ class _ContactState extends State<Contact> {
                 height: _elementgap,
               ),
               CommonButton(
-                  title: Text('Create Visit',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
+                  title: _isLoading
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Text(
+                          'Create Visit',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
                   onPress: () {
                     _saveForm();
                   }),

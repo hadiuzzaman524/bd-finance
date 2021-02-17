@@ -2,6 +2,7 @@ import 'package:bd_finance/constants/constants.dart';
 import 'package:bd_finance/generated/assets.dart';
 import 'package:bd_finance/screens/sales_force.dart';
 import 'package:bd_finance/widgets/button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -80,15 +81,13 @@ class _LoginState extends State<Login> {
         print(e);
       }
 
-      /*  await FirebaseFirestore.instance
-          .collection('users')
-          .doc()
-          .set({'name': _name, 'userId': state.user.uid}).catchError((e) {
-        setState(() {
-          isLoading = false;
-        });
-      });*/
-
+      await FirebaseFirestore.instance.collection('users').doc().set({
+        'name': _name,
+        'email': _email,
+        'userId': state.user.uid
+      }).catchError((e) {
+        print("Error: $e");
+      });
     }
   }
 
@@ -161,10 +160,10 @@ class _LoginState extends State<Login> {
           DialogButton(
             color: Theme.of(context).buttonColor,
             onPressed: _saveSignUpForm,
-            child:Text(
-                    "LOGIN",
-                    style: TextStyle(color: Colors.black, fontSize: 20),
-                  ),
+            child: Text(
+              "LOGIN",
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
           )
         ]).show();
   }
